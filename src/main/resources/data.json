@@ -1,0 +1,7 @@
+{
+  "username" : "standard_user",
+  "password" : "secret_sauce",
+  "product_locator_1": "jacket",
+  "product_locator_2": "onesie",
+  "product_locator_3": "t-shirt"
+}

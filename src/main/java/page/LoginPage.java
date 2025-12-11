@@ -1,0 +1,41 @@
+package page;
+
+import header.HeaderComponent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+
+public class LoginPage extends BasePage {
+
+    //locators
+    //Validation(Assertions)
+    //actions
+
+    private final By usernameFiled = By.id("user-name");
+    private final By passwordFiled = By.id("password");
+    private final By loginButton = By.id("login-button");
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public LoginPage loginPage(String username, String password) {
+
+        utils.type(usernameFiled, username);
+        utils.type(passwordFiled, password);
+        utils.click(loginButton);
+//        driver.findElement(usernameFiled).sendKeys(username);
+//        driver.findElement(passwordFiled).sendKeys(password);
+//        driver.findElement(loginButton).click();
+        return this;
+
+    }
+
+    public HomePage isLoggedIn(String expectedUrlPart) {
+        Assert.assertTrue(driver.getCurrentUrl()
+                .contains(expectedUrlPart), "logged In");
+        return new HomePage(driver);
+    }
+
+
+}
