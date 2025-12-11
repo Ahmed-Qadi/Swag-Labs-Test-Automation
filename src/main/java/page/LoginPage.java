@@ -37,5 +37,13 @@ public class LoginPage extends BasePage {
         return new HomePage(driver);
     }
 
+    private final By errorMessage = By.cssSelector("[data-test='error']");
+    public LoginPage assertErrorMessage(String expectedMessage) {
+        String actualText = driver.findElement(errorMessage).getText();
+        Assert.assertTrue(actualText.contains(expectedMessage),
+                "Expected error: " + expectedMessage + " but found: " + actualText);
+        return this;
+    }
+
 
 }

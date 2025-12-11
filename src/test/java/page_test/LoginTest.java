@@ -22,9 +22,28 @@ public class LoginTest {
     @Test
     void validateLogin() {
         new LoginPage(WebDriverFactory.getDriver())
-                .loginPage(JsonReader.getJsonContent("username"), JsonReader.getJsonContent("password"))
+                .loginPage(JsonReader.getJsonContent("username"),
+                        JsonReader.getJsonContent("password"))
                 .isLoggedIn(PropertyReader.getProperty("expectedUrlForLoggedUser"));
 
+    }
+    @Test
+    void validateInvalidUsername() {
+        new LoginPage(driver)
+                .loginPage("wrongUser", JsonReader.getJsonContent("password"))
+                .assertErrorMessage("Username and password do not match");
+    }
+    @Test
+    void validateInvalidPassword() {
+        new LoginPage(driver)
+                .loginPage(JsonReader.getJsonContent("username"), "wrongPass")
+                .assertErrorMessage("Username and password do not match");
+    }
+    @Test
+    void validateEmptyCredentials() {
+        new LoginPage(driver)
+                .loginPage("", "")
+                .assertErrorMessage("Username is required");
     }
 
 
