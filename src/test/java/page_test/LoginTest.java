@@ -9,28 +9,44 @@ import page.LoginPage;
 import utils.readers.JsonReader;
 import utils.readers.PropertyReader;
 
-public class LoginTest {
+public class LoginTest extends BaseTest{
 
-    WebDriver driver;
+
 
     @BeforeMethod
-    void setup() {
-        driver = WebDriverFactory.initDriver(PropertyReader.getProperty("browser"));
-        driver.get(PropertyReader.getProperty("base_url"));
+    public void setup() {
+         WebDriverFactory.initDriver(PropertyReader.getProperty("browser"));
+        WebDriverFactory.getDriver().get(PropertyReader.getProperty("base_url"));
     }
 
     @Test
     void validateLogin() {
         new LoginPage(WebDriverFactory.getDriver())
                 .loginPage(JsonReader.getJsonContent("username"), JsonReader.getJsonContent("password"))
-                .isLoggedIn(PropertyReader.getProperty("expectedUrlForLoggedUser"));
+                .isLoggedIn(PropertyReader.getProperty("homePageUrl"));
 
     }
 
-
-    @AfterMethod
-    void tearDown() {
-        WebDriverFactory.quitDriver();
+    @Test
+    void validateInvalidUsername() {
+        new LoginPage(WebDriverFactory.getDriver())
+                .loginPage("wrongUser", JsonReader.getJsonContent("password"))
+                .assertErrorMessage("Username and password do not match");
     }
+    @Test
+    void validateInvalidPassword() {
+        new LoginPage(WebDriverFactory.getDriver())
+                .loginPage(JsonReader.getJsonContent("username"), "wrongPass")
+                .assertErrorMessage("Username and password do not match");
+    }
+    @Test
+    void validateEmptyCredentials() {
+        new LoginPage(WebDriverFactory.getDriver())
+                .loginPage("", "")
+                .assertErrorMessage("Username is required");
+    }
+
+
+
 
 }

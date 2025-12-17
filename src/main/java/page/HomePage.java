@@ -38,13 +38,12 @@ public class HomePage extends BasePage{
         return this;
     }
 
-    public HomePage verifyPriceSortedLoweToHigh() {
+    public void verifyPriceSortedLoweToHigh() {
         List<Double> prices = getProductsPrices();
         for (int i = 0; i < prices.size() - 1; i++) {
             Assert.assertTrue(prices.get(i) <= prices.get(i + 1));
         }
 
-        return this;
     }
 
 
@@ -65,13 +64,7 @@ public class HomePage extends BasePage{
     }
 
 
-    public HomePage validateRemoveFromCartIcon() {
-        //String cartIconText = driver.findElement(shoppingCartIcon).getText();
 
-        int cartIconText = utils.getCartNumber();
-        Assert.assertEquals(cartIconText, (getCartValueBeforeDelete-1));
-        return this;
-    }
 
     public HomePage addToCart(String productName) {
         String path = "[id^='add'][id$='"+productName+"']";
@@ -87,10 +80,9 @@ public class HomePage extends BasePage{
     }
 
 
-    public HomePage validateRemoveProductFromHomePage() {
+    public void validateRemoveProductFromHomePage() {
         //String cartIconText = driver.findElement(shoppingCartIcon).getText();
         utils.validateCartDecrement();
-        return this;
     }
 
 }

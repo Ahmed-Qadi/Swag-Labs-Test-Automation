@@ -10,21 +10,10 @@ import page.LoginPage;
 import utils.readers.JsonReader;
 import utils.readers.PropertyReader;
 
-public class HomeTest {
+public class HomeTest extends BaseTest{
 
 
-    @BeforeMethod
-    public void setup() {
 
-
-        WebDriverFactory.initDriver(PropertyReader.getProperty("browser"));
-        WebDriver driver = WebDriverFactory.getDriver();
-        driver.get(PropertyReader.getProperty("base_url"));
-
-        new LoginPage(WebDriverFactory.getDriver())
-                .loginPage(JsonReader.getJsonContent("username"), JsonReader.getJsonContent("password"))
-                .isLoggedIn(PropertyReader.getProperty("expectedUrlForLoggedUser"));
-    }
 
     @Test
     void validateSortHighToLowTC() {
@@ -59,10 +48,7 @@ public class HomeTest {
 
 
 
-    @AfterMethod
-    void teardown() {
-        WebDriverFactory.quitDriver();
-    }
+
 
 
 }

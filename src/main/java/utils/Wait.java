@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Wait {
 
-    private final WebDriver driver;
+    private  WebDriver driver;
 
     public Wait(WebDriver driver) {
         this.driver = driver;

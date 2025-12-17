@@ -1,6 +1,5 @@
 package page;
 
-import header.HeaderComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -14,6 +13,8 @@ public class LoginPage extends BasePage {
     private final By usernameFiled = By.id("user-name");
     private final By passwordFiled = By.id("password");
     private final By loginButton = By.id("login-button");
+    private final By errorMessage = By.cssSelector("[data-test='error']");
+
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -31,9 +32,14 @@ public class LoginPage extends BasePage {
 
     }
 
+    public LoginPage assertErrorMessage(String expectedMessage) {
+        String actualText = driver.findElement(errorMessage).getText();
+        Assert.assertTrue(actualText.contains(expectedMessage), "Expected error: " + expectedMessage + " but found: " + actualText);
+        return this;
+    }
+
     public HomePage isLoggedIn(String expectedUrlPart) {
-        Assert.assertTrue(driver.getCurrentUrl()
-                .contains(expectedUrlPart), "logged In");
+        Assert.assertTrue(driver.getCurrentUrl().contains(expectedUrlPart), "logged In");
         return new HomePage(driver);
     }
 

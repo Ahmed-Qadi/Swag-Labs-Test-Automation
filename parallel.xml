@@ -1,8 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="Parallel Execution Example">
-    <test name="parallel Test" parallel="true" thread-count="3">
+    <test name="parallel Test" parallel="true" thread-count="4">
         <classes>
             <class name="page_test.HomeTest"/>
+            <class name="page_test.LoginTest"/>
+            <class name="page_test.CartTest"/>
+            <class name="header.HeaderTest"/>
+            <class name="page_test.CheckoutAddInfoTest"/>
+            <class name="page_test.OverviewTest"/>
         </classes>
     </test>
 

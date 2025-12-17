@@ -8,7 +8,7 @@ public class WebDriverFactory {
 
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();//for parallel execution
 
-    private static AbstractDriver getDriver(String driverType) {
+    private static AbstractDriver getDriverFactory(String driverType) {
 
         return switch (driverType) {
             case "chrome" -> new ChromeFactory();
@@ -19,7 +19,7 @@ public class WebDriverFactory {
     }
 
     public static WebDriver initDriver(String browser){
-        WebDriver driver = ThreadGuard.protect(getDriver(browser).createDriver());
+        WebDriver driver = ThreadGuard.protect(getDriverFactory(browser).createDriver());
         driverThreadLocal.set(driver);
         return driverThreadLocal.get();
 

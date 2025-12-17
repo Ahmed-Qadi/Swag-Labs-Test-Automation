@@ -2,49 +2,60 @@ package page_test;
 
 import driver.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import page.BasePage;
 import page.CartPage;
 import page.HomePage;
 import page.LoginPage;
 import utils.readers.JsonReader;
 import utils.readers.PropertyReader;
 
-public class CartTest {
+public class CartTest extends BaseTest {
 
-    WebDriver driver;
+    private CartPage cartPage;
 
-    @BeforeMethod
-    public void init() {
-        WebDriverFactory.initDriver(PropertyReader.getProperty("browser"));
-        driver = WebDriverFactory.getDriver();
-        driver.get(PropertyReader.getProperty("base_url"));
-        new LoginPage(driver)
-                .loginPage(JsonReader.getJsonContent("username"), JsonReader.getJsonContent("password"))
-                .isLoggedIn(PropertyReader.getProperty("expectedUrlForLoggedUser"));
+    private final String product1 = JsonReader.getJsonContent("product_locator_1");
 
+
+    @Test
+    public void assertRemoveProductFromCartPage() {
+        cartPage = homePage
+                .addToCart(product1)
+                .validateAddToCartIcon()
+                .navigateToCartPage();
+
+        cartPage
+                .removeFromCart(product1)
+                .validateRemoveProductFromCartPage();
     }
 
     @Test
-    public void validateRemoveProductFromCartPage() {
-        new HomePage(driver)
-                .addToCart(JsonReader.getJsonContent("product_locator_1"))
+    public void assertUserNavigatedToHome() {
+
+        cartPage = homePage
+                .addToCart(product1)
                 .validateAddToCartIcon()
-                .validateNavigateToCartPage()
-                .removeFromCart(JsonReader.getJsonContent("product_locator_1"))
-                .validateRemoveProductFromCartPage();
+                .navigateToCartPage();
 
+        cartPage.validateNavigateToHome();
+
+    }
+    @Test
+    public void assertUserNavigatedToCheckout() {
+
+        cartPage = homePage
+                .addToCart(product1)
+                .validateAddToCartIcon()
+                .navigateToCartPage();
+
+        cartPage.validateNavigateToCheckout();
 
     }
 
 
 
 
-    @AfterMethod
-    void teardown() {
-        WebDriverFactory.quitDriver();
-    }
+
 
 
 }

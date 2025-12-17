@@ -27,7 +27,7 @@ public class HeaderComponent extends BasePage {
     public void validateLogout() {
         utils.click(burgerMenu);
         utils.click(logoutBtn);
-        Assert.assertTrue(driver.getCurrentUrl().contains(PropertyReader.getProperty("expectedUrlForLogoutUser")));
+        Assert.assertTrue(driver.getCurrentUrl().contains(PropertyReader.getProperty("loginPageUrl")));
     }
 
     public void validateResetAppState(){
@@ -37,7 +37,7 @@ public class HeaderComponent extends BasePage {
 
     }
 
-    public CartPage validateNavigateToCartPage(){
+    public CartPage navigateToCartPage(){
         utils.click(shoppingCartIconBtn);
         Assert.assertTrue(driver.getCurrentUrl().contains(PropertyReader.getProperty("cartPageUrl")));
         return new  CartPage(driver);
