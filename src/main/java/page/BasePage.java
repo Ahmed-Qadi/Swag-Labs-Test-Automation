@@ -12,4 +12,5 @@ public class BasePage {
         this.driver = driver;
         utils = new Utils(driver);
     }
+
 }

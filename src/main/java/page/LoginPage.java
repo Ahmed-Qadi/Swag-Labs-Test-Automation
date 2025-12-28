@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -20,6 +21,7 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("Login test using username is {username} and password is {password}")
     public LoginPage loginPage(String username, String password) {
 
         utils.type(usernameFiled, username);

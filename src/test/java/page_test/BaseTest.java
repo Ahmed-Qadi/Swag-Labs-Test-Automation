@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import page.HomePage;
 import page.LoginPage;
+import utils.ScreenShotUtils;
 import utils.readers.JsonReader;
 import utils.readers.PropertyReader;
 
